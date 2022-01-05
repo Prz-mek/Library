@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Infrastructure", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.WebAPI", "Library.WebAPI\Library.WebAPI.csproj", "{AC5287DE-EF44-46A9-83A8-0BA69B87372A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.WebApp", "Library.WebApp\Library.WebApp.csproj", "{FFBAD4D4-F733-4AA8-B372-A78845C11303}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Test", "Library.Test\Library.Test.csproj", "{7B280FAA-2706-452E-8EC1-B2254C76550E}"
 EndProject
 Global
