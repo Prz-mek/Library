@@ -1,7 +1,9 @@
-﻿using Library.Infrastructure.DTO;
+﻿using Library.Infrastructure.Commands;
+using Library.Infrastructure.DTO;
 using Library.Infrastructure.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Library.WebAPI.Controllers
@@ -10,10 +12,12 @@ namespace Library.WebAPI.Controllers
     public class BorrowingController : Controller
     {
         private readonly IBorrowingService _borrowingService;
+        private readonly IBookService _bookService;
 
-        public BorrowingController(IBorrowingService borrowingService)
+        public BorrowingController(IBorrowingService borrowingService, IBookService bookService)
         {
             _borrowingService = borrowingService;
+            _bookService = bookService;
         }
 
         [HttpGet]
@@ -23,6 +27,29 @@ namespace Library.WebAPI.Controllers
             {
                 var borrowings = await _borrowingService.GetAll();
                 return Json(borrowings);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("shortened")]
+        public async Task<IActionResult> GetAllShortened()
+        {
+            try
+            {
+                var borrowings = await _borrowingService.GetAll();
+                return Json(borrowings.Select(async b => {
+                    var book = await _bookService.Get(b.Id);
+                    return new BorrowingShortened()
+                    {
+                        Id = b.Id,
+                        Deadline = b.Deadline,
+                        Returned = b.Returned,
+                        BookTitle = book.Title
+                    };
+                }));
             }
             catch (Exception ex)
             {

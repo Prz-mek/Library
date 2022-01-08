@@ -21,7 +21,7 @@ namespace Library.Infrastructure.Repositories
         {
             try
             {
-                _appDbContext.BranchLibrary.Add(library);
+                _appDbContext.Add(library);
                 _appDbContext.SaveChanges();
                 await Task.CompletedTask;
             }

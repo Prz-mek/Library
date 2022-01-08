@@ -16,6 +16,12 @@ namespace Library.Infrastructure.ServiceInterfaces
 
         Task<IEnumerable<BorrowingDTO>> GetAll();
 
+        Task<IEnumerable<BorrowingDTO>> GetByReader(int id);
+
+        Task<IEnumerable<BorrowingDTO>> GetByBook(int id);
+
+        Task<bool> isBookBorrowed(int id);
+
         Task Delete(int id);
     }
 }

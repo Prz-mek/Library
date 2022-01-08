@@ -42,10 +42,10 @@ namespace Library.WebAPI
             services.AddScoped<IBranchLibraryService, BranchLibraryService>();
 
             services.AddScoped<ILibrarianRepository, LibrarianRepository>();
-            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<ILibrarianService, LibrarianService>();
 
-            services.AddScoped<IBookRepository, BookRepository>();
-            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IReaderRepository, ReaderRepository>();
+            services.AddScoped<IReaderService, ReaderService>();
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LibraryConnectionString")));
         }

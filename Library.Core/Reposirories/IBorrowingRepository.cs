@@ -16,6 +16,10 @@ namespace Library.Core.Repisirories
 
         Task<IEnumerable<Borrowing>> GetAllAsync();
 
+        Task<IEnumerable<Borrowing>> GetByBookAsync(int id);
+
+        Task<IEnumerable<Borrowing>> GetByReaderAsync(int id);
+
         Task DeleteAsync(int id);
     }
 }

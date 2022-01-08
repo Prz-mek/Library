@@ -9,6 +9,7 @@ namespace Library.Core.Domain
         public int Id { get; set; }
         public DateTime BorrowingDate { get; set; }
         public DateTime Deadline { get; set; }
+        public bool Returned { get; set; }
 
         public int BookId { get; set; }
         public Book Book { get; set; }

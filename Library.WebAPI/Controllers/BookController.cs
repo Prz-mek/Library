@@ -1,4 +1,5 @@
-﻿using Library.Infrastructure.DTO;
+﻿using Library.Infrastructure.Commands;
+using Library.Infrastructure.DTO;
 using Library.Infrastructure.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,10 +11,14 @@ namespace Library.WebAPI.Controllers
     public class BookController : Controller
     {
         private readonly IBookService _bookService;
+        private readonly IBranchLibraryService _branchLibraryService;
+        private readonly IBorrowingService _borrowingService;
 
-        public BookController(IBookService bookService)
+        public BookController(IBookService bookService, IBranchLibraryService branchLibraryService, IBorrowingService borrowingService)
         {
             _bookService = bookService;
+            _branchLibraryService = branchLibraryService;
+            _borrowingService = borrowingService;
         }
 
         [HttpGet]
@@ -37,6 +42,33 @@ namespace Library.WebAPI.Controllers
             {
                 var book = await _bookService.Get(id);
                 return Json(book);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("details/{id}")]
+        public async Task<IActionResult> GetDetails(int id)
+        {
+            try
+            {
+                var book = await _bookService.Get(id);
+                var library = await _branchLibraryService.Get(book.BranchLibraryId);
+                var isBorrowed = await _borrowingService.isBookBorrowed(id);
+                return Json(new BookDetails()
+                {
+                    Id = id,
+                    Title = book.Title,
+                    Author = book.Author,
+                    PageCount = book.PageCount,
+
+                    IsBorrowed = isBorrowed,
+
+                    BranchLibraryName = library.Name,
+                    BranchLibraryAddress = $"{library.Street} {library.HauseNumber}"
+                });
             }
             catch (Exception ex)
             {

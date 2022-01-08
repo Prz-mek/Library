@@ -28,6 +28,7 @@ namespace Library.Infrastructure.Services
                     Id = borrowing.Id,
                     BorrowingDate = borrowing.BorrowingDate,
                     Deadline = borrowing.Deadline,
+                    Returned = borrowing.Returned,
                     BookId = borrowing.BookId,
                     ReaderId = borrowing.ReaderId
                 });
@@ -58,6 +59,7 @@ namespace Library.Infrastructure.Services
                 Id = borrowing.Id,
                 BorrowingDate = borrowing.BorrowingDate,
                 Deadline = borrowing.Deadline,
+                Returned = borrowing.Returned,
                 BookId = borrowing.BookId,
                 ReaderId = borrowing.ReaderId
             };
@@ -71,9 +73,44 @@ namespace Library.Infrastructure.Services
                 Id = b.Id,
                 BorrowingDate = b.BorrowingDate,
                 Deadline = b.Deadline,
+                Returned = b.Returned,
                 BookId = b.BookId,
                 ReaderId = b.ReaderId
             });
+        }
+
+        public async Task<IEnumerable<BorrowingDTO>> GetByBook(int id)
+        {
+            var borrowings = await _borrowingRepository.GetByReaderAsync(id);
+            return borrowings.Select(b => new BorrowingDTO()
+            {
+                Id = b.Id,
+                BorrowingDate = b.BorrowingDate,
+                Deadline = b.Deadline,
+                Returned = b.Returned,
+                BookId = b.BookId,
+                ReaderId = b.ReaderId
+            });
+        }
+
+        public async Task<IEnumerable<BorrowingDTO>> GetByReader(int id)
+        {
+            var borrowings = await _borrowingRepository.GetByReaderAsync(id);
+            return borrowings.Select(b => new BorrowingDTO()
+            {
+                Id = b.Id,
+                BorrowingDate = b.BorrowingDate,
+                Deadline = b.Deadline,
+                Returned = b.Returned,
+                BookId = b.BookId,
+                ReaderId = b.ReaderId
+            });
+        }
+
+        public async Task<bool> isBookBorrowed(int id)
+        {
+            var borrowings = await _borrowingRepository.GetByReaderAsync(id);
+            return borrowings.Where(x => x.Returned).Any();
         }
 
         public async Task Update(BorrowingDTO borrowing)
@@ -85,6 +122,7 @@ namespace Library.Infrastructure.Services
                     Id = borrowing.Id,
                     BorrowingDate = borrowing.BorrowingDate,
                     Deadline = borrowing.Deadline,
+                    Returned = borrowing.Returned,
                     BookId = borrowing.BookId,
                     ReaderId = borrowing.ReaderId
                 });

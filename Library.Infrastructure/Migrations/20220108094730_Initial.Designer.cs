@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220101113528_First")]
-    partial class First
+    [Migration("20220108094730_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,9 @@ namespace Library.Infrastructure.Migrations
 
                     b.Property<int>("ReaderId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Returned")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -176,7 +179,7 @@ namespace Library.Infrastructure.Migrations
             modelBuilder.Entity("Library.Core.Domain.Librarian", b =>
                 {
                     b.HasOne("Library.Core.Domain.BranchLibrary", "BranchLibrary")
-                        .WithMany("Librarians")
+                        .WithMany()
                         .HasForeignKey("BranchLibraryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -192,8 +195,6 @@ namespace Library.Infrastructure.Migrations
             modelBuilder.Entity("Library.Core.Domain.BranchLibrary", b =>
                 {
                     b.Navigation("Books");
-
-                    b.Navigation("Librarians");
                 });
 
             modelBuilder.Entity("Library.Core.Domain.Reader", b =>

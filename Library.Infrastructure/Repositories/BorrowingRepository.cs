@@ -56,6 +56,18 @@ namespace Library.Infrastructure.Repositories
             return await Task.FromResult(borrowing);
         }
 
+        public async Task<IEnumerable<Borrowing>> GetByBookAsync(int id)
+        {
+            var borrowings = _appDbContext.Borrowing.Where(x => x.BookId == id);
+            return await Task.FromResult(borrowings);
+        }
+
+        public async Task<IEnumerable<Borrowing>> GetByReaderAsync(int id)
+        {
+            var borrowings = _appDbContext.Borrowing.Where(x => x.ReaderId == id);
+            return await Task.FromResult(borrowings);
+        }
+
         public async Task UpdateAsync(Borrowing borrowing)
         {
             try
@@ -64,6 +76,7 @@ namespace Library.Infrastructure.Repositories
                 old.Id = borrowing.Id;
                 old.BorrowingDate = borrowing.BorrowingDate;
                 old.Deadline = borrowing.Deadline;
+                old.Returned = borrowing.Returned;
 
                 old.BookId = borrowing.BookId;
                 old.Book = borrowing.Book;
