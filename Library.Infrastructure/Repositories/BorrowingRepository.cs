@@ -1,5 +1,5 @@
 ﻿using Library.Core.Domain;
-using Library.Core.Repisirories;
+using Library.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

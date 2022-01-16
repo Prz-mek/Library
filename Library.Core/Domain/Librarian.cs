@@ -10,6 +10,8 @@ namespace Library.Core.Domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public string UserName { get; set; }
+
         public int BranchLibraryId { get; set; }
         public BranchLibrary BranchLibrary { get; set; }
     }

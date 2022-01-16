@@ -17,6 +17,7 @@ namespace Library.Infrastructure.Repositories
         public DbSet<Borrowing> Borrowing { get; set; }
         public DbSet<BranchLibrary> BranchLibrary { get; set; }
         public DbSet<Librarian> Librarian { get; set; }
+        public DbSet<LibraryCard> LibraryCard { get; set; }
         public DbSet<Reader> Reader { get; set; }
     }
 }

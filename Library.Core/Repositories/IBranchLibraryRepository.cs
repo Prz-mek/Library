@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Core.Repisirories
+namespace Library.Core.Repositories
 {
     public interface IBranchLibraryRepository
     {

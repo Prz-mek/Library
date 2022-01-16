@@ -1,4 +1,4 @@
-using Library.Core.Repisirories;
+using Library.Core.Repositories;
 using Library.Infrastructure.Repositories;
 using Library.Infrastructure.ServiceInterfaces;
 using Library.Infrastructure.Services;
@@ -43,6 +43,9 @@ namespace Library.WebAPI
 
             services.AddScoped<ILibrarianRepository, LibrarianRepository>();
             services.AddScoped<ILibrarianService, LibrarianService>();
+
+            services.AddScoped<ILibraryCardRepository, LibraryCardRepository>();
+            services.AddScoped<ILibraryCardService, LibraryCardService>();
 
             services.AddScoped<IReaderRepository, ReaderRepository>();
             services.AddScoped<IReaderService, ReaderService>();

@@ -12,6 +12,10 @@ namespace Library.Core.Domain
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
 
+        public string UserName { get; set; }
+
         public List<Borrowing> Borrowings { get; set; }
+
+        public LibraryCard LibraryCard { get; set; }
     }
 }

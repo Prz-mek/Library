@@ -1,5 +1,5 @@
 ﻿using Library.Core.Domain;
-using Library.Core.Repisirories;
+using Library.Core.Repositories;
 using Library.Infrastructure.DTO;
 using Library.Infrastructure.ServiceInterfaces;
 using System;
