@@ -1,4 +1,5 @@
 ﻿using Library.WebApp.Models.Book;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -50,12 +51,14 @@ namespace Library.WebApp.Controllers
             return View(booksList);
         }
 
+        [Authorize(Roles = "Librarian")]
         public IActionResult Create()
         {
             BookCreateVM book = new BookCreateVM();
             return View(book);
         }
 
+        [Authorize(Roles = "Librarian")]
         [HttpPost]
         public async Task<IActionResult> Create(BookCreateVM book)
         {
@@ -79,6 +82,7 @@ namespace Library.WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Librarian")]
         public async Task<IActionResult> Edit(int id)
         {
             string _restpath = GetHostUrl().Content + GetControllerName();
@@ -98,6 +102,7 @@ namespace Library.WebApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Librarian")]
         public async Task<IActionResult> Edit(BookEditVM book)
         {
             string _restpath = GetHostUrl().Content + GetControllerName();
@@ -144,6 +149,7 @@ namespace Library.WebApp.Controllers
             return View(book);
         }
 
+        [Authorize(Roles = "Librarian")]
         public async Task<IActionResult> Delete(int id)
         {
             string _restpath = GetHostUrl().Content + GetControllerName();

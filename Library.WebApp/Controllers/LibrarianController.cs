@@ -1,4 +1,4 @@
-﻿using Library.WebApp.Models.BranchLibrary;
+﻿using Library.WebApp.Models.Libarian;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,11 +11,12 @@ using System.Threading.Tasks;
 
 namespace Library.WebApp.Controllers
 {
-    public class BranchLibraryController : Controller
+    [Authorize(Roles = "Admin")]
+    public class LibrarianController : Controller
     {
         public IConfiguration Configuration;
 
-        public BranchLibraryController(IConfiguration configuration)
+        public LibrarianController(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -37,28 +38,28 @@ namespace Library.WebApp.Controllers
         {
             string _restpath = GetHostUrl().Content + GetControllerName();
 
-            List<BranchLibraryVM> branchLibrariesList = new List<BranchLibraryVM>();
+            List<LibrarianVM> librarianList = new List<LibrarianVM>();
 
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync(_restpath))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    branchLibrariesList = JsonConvert.DeserializeObject<List<BranchLibraryVM>>(apiResponse);
+                    librarianList = JsonConvert.DeserializeObject<List<LibrarianVM>>(apiResponse);
                 }
             }
 
-            return View(branchLibrariesList);
+            return View(librarianList);
         }
 
         public IActionResult Create()
         {
-            BranchLibraryCreateVM branchLibrary = new BranchLibraryCreateVM();
-            return View(branchLibrary);
+            LibrarianCreateVM librarian = new LibrarianCreateVM();
+            return View(librarian);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BranchLibraryVM branchLibrary)
+        public async Task<IActionResult> Create(LibrarianCreateVM librarian)
         {
             string _restpath = GetHostUrl().Content + GetControllerName();
 
@@ -66,8 +67,8 @@ namespace Library.WebApp.Controllers
             {
                 using (var httpClient = new HttpClient())
                 {
-                    string branchLibraryJson = System.Text.Json.JsonSerializer.Serialize(branchLibrary);
-                    var content = new StringContent(branchLibraryJson, Encoding.UTF8, "application/json");
+                    string librarianJson = System.Text.Json.JsonSerializer.Serialize(librarian);
+                    var content = new StringContent(librarianJson, Encoding.UTF8, "application/json");
 
                     var response = await httpClient.PostAsync(_restpath, content);
                 }
@@ -80,44 +81,42 @@ namespace Library.WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Librarian,Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             string _restpath = GetHostUrl().Content + GetControllerName();
 
-            BranchLibraryVM branchLibrary = new BranchLibraryVM();
+            LibrarianVM librarian = new LibrarianVM();
 
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync($"{_restpath}/{id}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    branchLibrary = JsonConvert.DeserializeObject<BranchLibraryVM>(apiResponse);
+                    librarian = JsonConvert.DeserializeObject<LibrarianVM>(apiResponse);
                 }
             }
 
-            return View(branchLibrary);
+            return View(librarian);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Librarian,Admin")]
-        public async Task<IActionResult> Edit(BranchLibraryVM branchLibrary)
+        public async Task<IActionResult> Edit(LibrarianVM librarian)
         {
             string _restpath = GetHostUrl().Content + GetControllerName();
 
-            BranchLibraryVM result = new BranchLibraryVM();
+            LibrarianVM result = new LibrarianVM();
 
             try
             {
                 using (var httpClient = new HttpClient())
                 {
-                    string branchLibraryJSON = System.Text.Json.JsonSerializer.Serialize(branchLibrary);
-                    var content = new StringContent(branchLibraryJSON, Encoding.UTF8, "application/json");
+                    string librarianJSON = System.Text.Json.JsonSerializer.Serialize(librarian);
+                    var content = new StringContent(librarianJSON, Encoding.UTF8, "application/json");
 
-                    using (var response = await httpClient.PutAsync($"{_restpath}/{branchLibrary.Id}", content))
+                    using (var response = await httpClient.PutAsync($"{_restpath}/{librarian.Id}", content))
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        result = JsonConvert.DeserializeObject<BranchLibraryVM>(apiResponse);
+                        result = JsonConvert.DeserializeObject<LibrarianVM>(apiResponse);
                     }
                 }
             }
@@ -129,7 +128,6 @@ namespace Library.WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Librarian,Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             string _restpath = GetHostUrl().Content + GetControllerName();

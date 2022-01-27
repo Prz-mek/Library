@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Library.Infrastructure.DTO
+﻿namespace Library.WebApp.Models.Libarian
 {
-    public class LibrarianDTO
+    public class LibrarianVM
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

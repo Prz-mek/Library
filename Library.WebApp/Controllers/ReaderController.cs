@@ -1,4 +1,5 @@
 ﻿using Library.WebApp.Models.Reader;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Library.WebApp.Controllers
 {
+    [Authorize(Roles = "Librarian,Admin")]
     public class ReaderController : Controller
     {
         public IConfiguration Configuration;

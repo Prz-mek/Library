@@ -28,7 +28,8 @@ namespace Library.Infrastructure.Services
                     Id = librarian.Id,
                     FirstName = librarian.FirstName,
                     LastName = librarian.LastName,
-                    BranchLibraryId = librarian.BranchLibraryId,
+                    UserName = librarian.UserName,
+                    BranchLibraryId = librarian.BranchLibraryId
                 });
             }
             catch (Exception ex)
@@ -57,6 +58,7 @@ namespace Library.Infrastructure.Services
                 Id = librarian.Id,
                 FirstName = librarian.FirstName,
                 LastName = librarian.LastName,
+                UserName = librarian.UserName,
                 BranchLibraryId = librarian.BranchLibraryId,
             };
         }
@@ -69,6 +71,7 @@ namespace Library.Infrastructure.Services
                 Id = l.Id,
                 FirstName = l.FirstName,
                 LastName = l.LastName,
+                UserName = l.UserName,
                 BranchLibraryId = l.BranchLibraryId,
             });
         }
@@ -82,6 +85,7 @@ namespace Library.Infrastructure.Services
                     Id = librarian.Id,
                     FirstName = librarian.FirstName,
                     LastName = librarian.LastName,
+                    UserName = librarian.UserName,
                     BranchLibraryId = librarian.BranchLibraryId,
                 });
             }

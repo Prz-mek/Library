@@ -29,7 +29,8 @@ namespace Library.Infrastructure.Services
                     FirstName = reader.FirstName,
                     LastName = reader.LastName,
                     Email = reader.Email,
-                    DateOfBirth = reader.DateOfBirth
+                    DateOfBirth = reader.DateOfBirth,
+                    UserName = reader.UserName
                 });
             }
             catch (Exception ex)
@@ -59,7 +60,8 @@ namespace Library.Infrastructure.Services
                 FirstName = reader.FirstName,
                 LastName = reader.LastName,
                 Email = reader.Email,
-                DateOfBirth = reader.DateOfBirth
+                DateOfBirth = reader.DateOfBirth,
+                UserName = reader.UserName
             });
         }
 
@@ -72,7 +74,8 @@ namespace Library.Infrastructure.Services
                 FirstName = r.FirstName,
                 LastName = r.LastName,
                 Email = r.Email,
-                DateOfBirth = r.DateOfBirth
+                DateOfBirth = r.DateOfBirth,
+                UserName = r.UserName
             });
         }
 
@@ -86,8 +89,10 @@ namespace Library.Infrastructure.Services
                     FirstName = reader.FirstName,
                     LastName = reader.LastName,
                     Email = reader.Email,
-                    DateOfBirth = reader.DateOfBirth
-                });
+                    DateOfBirth = reader.DateOfBirth,
+                    UserName = reader.UserName
+
+            });
             }
             catch (Exception ex)
             {

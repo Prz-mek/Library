@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,9 +22,6 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Główna</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
 
@@ -32,6 +32,46 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="BranchLibrary" asp-action="Index">Biblioteki</a>
                         </li>
+
+                        @{
+                            if (User.IsInRole("Admin") || User.IsInRole("Trainer"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Borrowing" asp-action="Index">Wyporzyczenia</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Reader" asp-action="Index">Czytelnicy</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Librarian" asp-action="Index">Bibliotekarze</a>
+                                </li>
+                            }
+                        }
+                        
+                            @* Rejestracja, Wylogowanie, Zalogowanie, Zalogowany user *@
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-link text-dark">
+                                    Witaj @User.Identity.Name
+                                </li>
+
+                                <li class="nav-link text-dark">
+                                    <form asp-area="" asp-controller="Account" asp-action="Logout" id="logoutForm" method="post" class="navbar-right">
+                                        <a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="RegisterReader">Zarejestruj się</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Zaloguj się</a>
+                                </li>
+                            }
+          
+
                     </ul>
                 </div>
             </div>

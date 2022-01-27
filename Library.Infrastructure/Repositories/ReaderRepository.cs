@@ -66,6 +66,7 @@ namespace Library.Infrastructure.Repositories
                 old.LastName = reader.LastName;
                 old.Email = reader.Email;
                 old.DateOfBirth = reader.DateOfBirth;
+                old.UserName = reader.UserName;
 
                 _appDbContext.SaveChanges();
                 await Task.CompletedTask;

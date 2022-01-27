@@ -64,6 +64,7 @@ namespace Library.Infrastructure.Repositories
                 old.Id = librarian.Id;
                 old.FirstName = librarian.FirstName;
                 old.LastName = librarian.LastName;
+                old.UserName = librarian.UserName;
 
                 old.BranchLibrary = librarian.BranchLibrary;
 

@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<Library.WebApp.Models.BranchLibrary.BranchLibraryVM>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@*{
+    if (User.IsInRole("Librarian") || User.IsInRole("Admin"))​ 
+    {
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
+}*@
+
 <table class="table">
     <thead>
         <tr>
-            <!--<th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>-->
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -24,9 +27,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <!--<td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>-->
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -37,9 +37,12 @@
                 @Html.DisplayFor(modelItem => item.HauseNumber)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                <!--@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |-->
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @if (User.IsInRole("Librarian") || User.IsInRole("Admin"))
+                {
+                    Html.ActionLink("Edit", "Edit", new { id = item.Id });
+                    Html.Raw(" | ");
+                    Html.ActionLink("Delete", "Delete", new { id = item.Id });
+                }
             </td>
         </tr>
 }
